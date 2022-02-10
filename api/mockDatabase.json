@@ -1,0 +1,150 @@
+{
+  "registries": [
+    {
+      "id": "8bdead6d-2331-492f-a70b-e761ed7534f8",
+      "name": "docker.io",
+      "repositories": ["b23299b2-1412-4a13-8fba-93943edc6784"]
+    },
+    {
+      "id": "37ef371f-dbac-4c32-81f5-89df6600f096",
+      "name": "myregistry.io",
+      "repositories": [
+        "ad4840de-ca46-426c-b4c7-ec3a7263d36a",
+        "74c28f06-f911-4bf5-89a8-e948c3d927e6"
+      ]
+    },
+    {
+      "id": "6ff5351e-b6aa-416a-be91-fec331d3e67f",
+      "name": "otherregistry.com",
+      "repositories": []
+    }
+  ],
+  "repositories": [
+    {
+      "id": "b23299b2-1412-4a13-8fba-93943edc6784",
+      "name": "library/ubuntu",
+      "registry": "8bdead6d-2331-492f-a70b-e761ed7534f8",
+      "tags": [
+        "2ae2958f-8b3d-4f7b-9598-9fff8dc1f81b",
+        "17146a17-cecb-4c7d-bed7-c5d18182ad5e"
+      ]
+    },
+    {
+      "id": "ad4840de-ca46-426c-b4c7-ec3a7263d36a",
+      "name": "user/alpine",
+      "registry": "37ef371f-dbac-4c32-81f5-89df6600f096",
+      "tags": ["bd047306-7926-411a-baa9-eb103a0bcfe4"]
+    },
+    {
+      "id": "74c28f06-f911-4bf5-89a8-e948c3d927e6",
+      "name": "user/tiny",
+      "registry": "37ef371f-dbac-4c32-81f5-89df6600f096",
+      "tags": ["36647f60-c398-4f28-a0f2-6048447e89a6"]
+    },
+    {
+      "id": "5395875b-2cf8-4e92-aeaa-a48dbe6fefe4",
+      "name": "alice/training",
+      "registry": "6ff5351e-b6aa-416a-be91-fec331d3e67f",
+      "tags": ["9003152a-4f1c-4fdc-ae72-603d13e34ea0"]
+    },
+    {
+      "id": "580e2283-145f-4787-841d-a5f816415335",
+      "name": "bob/training",
+      "registry": "6ff5351e-b6aa-416a-be91-fec331d3e67f",
+      "tags": ["ebaab056-0bc8-4c8e-acf6-8b7b1e915e54"]
+    }
+  ],
+  "tags": [
+    {
+      "id": "2ae2958f-8b3d-4f7b-9598-9fff8dc1f81b",
+      "name": "latest",
+      "repository": "b23299b2-1412-4a13-8fba-93943edc6784"
+    },
+    {
+      "id": "17146a17-cecb-4c7d-bed7-c5d18182ad5e",
+      "name": "20.04",
+      "repository": "b23299b2-1412-4a13-8fba-93943edc6784"
+    },
+    {
+      "id": "bd047306-7926-411a-baa9-eb103a0bcfe4",
+      "name": "latest",
+      "repository": "ad4840de-ca46-426c-b4c7-ec3a7263d36a"
+    },
+    {
+      "id": "36647f60-c398-4f28-a0f2-6048447e89a6",
+      "name": "test",
+      "repository": "74c28f06-f911-4bf5-89a8-e948c3d927e6"
+    },
+    {
+      "id": "9003152a-4f1c-4fdc-ae72-603d13e34ea0",
+      "name": "20220101",
+      "repository": "5395875b-2cf8-4e92-aeaa-a48dbe6fefe4"
+    },
+    {
+      "id": "ebaab056-0bc8-4c8e-acf6-8b7b1e915e54",
+      "name": "example",
+      "repository": "580e2283-145f-4787-841d-a5f816415335"
+    }
+  ],
+  "users": [
+    {
+      "id": "a8faf0b0-9fb9-40f4-bfad-405cbc596d4a",
+      "email": "bstummeyer0@state.tx.us",
+      "avatar": "https://robohash.org/nammaioresrepellat.png?size=250x250&set=set1",
+      "password": "MJ6JXy",
+      "username": "ypartridge0"
+    },
+    {
+      "id": "7e6a668d-0bfb-45d0-8e26-711daeff79e2",
+      "email": "mraccio1@etsy.com",
+      "avatar": "https://robohash.org/quaequamrerum.png?size=250x250&set=set1",
+      "password": "k0YPc6jWX",
+      "username": "bdewdeny1"
+    },
+    {
+      "id": "ff304507-b0cc-428b-9b01-dbd4a87c428d",
+      "email": "smichelle2@ning.com",
+      "avatar": "https://robohash.org/cupiditatevelnatus.png?size=250x250&set=set1",
+      "password": "azFCW8",
+      "username": "fcoatsworth2"
+    },
+    {
+      "id": "7d776880-b1a2-48f6-98bf-bd084eb683c6",
+      "email": "gmarshland3@nature.com",
+      "avatar": "https://robohash.org/distinctioethic.png?size=250x250&set=set1",
+      "password": "b7UysaFAS",
+      "username": "gperks3"
+    },
+    {
+      "id": "f1583094-73fe-431b-8a77-4287abb56b5b",
+      "email": "squinnell4@smh.com.au",
+      "avatar": "https://robohash.org/doloreaquevoluptatem.png?size=250x250&set=set1",
+      "password": "kKRSUvve62",
+      "username": "byglesias4"
+    }
+  ],
+  "containers": [
+    {
+      "id": "6469ebc3-dc55-45ce-9916-5d4498e2e9a4",
+      "name": "ubuntu container",
+      "user": "a8faf0b0-9fb9-40f4-bfad-405cbc596d4a",
+      "image": {
+        "registry": "8bdead6d-2331-492f-a70b-e761ed7534f8",
+        "repository": "b23299b2-1412-4a13-8fba-93943edc6784",
+        "tag": "2ae2958f-8b3d-4f7b-9598-9fff8dc1f81b"
+      },
+      "isRunning": true
+    },
+    {
+      "id": "9246c052-34e4-4899-89c7-d8144989d831",
+      "name": "ubuntu container 2",
+      "user": "a8faf0b0-9fb9-40f4-bfad-405cbc596d4a",
+      "image": {
+        "registry": "8bdead6d-2331-492f-a70b-e761ed7534f8",
+        "repository": "b23299b2-1412-4a13-8fba-93943edc6784",
+        "tag": "2ae2958f-8b3d-4f7b-9598-9fff8dc1f81b"
+      },
+      "isRunning": false
+    }
+  ]
+}
