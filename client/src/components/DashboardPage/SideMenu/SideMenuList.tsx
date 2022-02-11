@@ -14,7 +14,6 @@ const routes = [
 
 function SideMenuList() {
   const location = useLocation();
-  console.log(location.pathname)
   return (
     <List>
       {routes.map((route, index) => (

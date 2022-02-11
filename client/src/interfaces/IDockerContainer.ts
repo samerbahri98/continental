@@ -6,4 +6,7 @@ export default interface IDockerContainer extends IDockerField {
   user: IUser;
   image: IDockerImage;
   isRunning: boolean;
+  imageLabel: string;
+  username: string;
+  userAvatar: string;
 }

@@ -40,13 +40,26 @@ function DeployForm() {
         id="Registry"
         disableCloseOnSelect
         renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Registry"
-            variant="standard"
-          />
+          <TextField {...params} label="Registry" variant="standard" />
         )}
       />
+      <Autocomplete
+        {...defaultProps}
+        id="Registry"
+        disableCloseOnSelect
+        renderInput={(params) => (
+          <TextField {...params} label="Registry" variant="standard" />
+        )}
+      />
+      <Autocomplete
+        {...defaultProps}
+        id="Registry"
+        disableCloseOnSelect
+        renderInput={(params) => (
+          <TextField {...params} label="Registry" variant="standard" />
+        )}
+      />
+      
     </Stack>
   );
 }

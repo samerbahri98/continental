@@ -4,21 +4,25 @@ import Deploy from "./pages/Deploy";
 import Login from "./pages/Login";
 import "./App.css";
 import Containers from "./pages/Containers";
+import {
+  useGetUserById,
+  useLoggedUser,
+  UserProvider,
+} from "./contexts/UserContexts";
+import { useEffect, useState } from "react";
+import IUser from "./interfaces/IUser";
 
 function App() {
+  const loggedUser = useLoggedUser() as IUser;
+  const [user, setUser] = useState<IUser>();
+  useEffect(() => {
+    if (!loggedUser) return;
+    setUser(loggedUser);
+  }, [loggedUser]);
   return (
     <Router>
       <Routes>
-        {localStorage.getItem("user") === null ? (
-          <Route
-            path="/"
-            element={
-              <>
-                <Login />
-              </>
-            }
-          />
-        ) : (
+        {user ? (
           <>
             <Route
               path="/"
@@ -45,6 +49,15 @@ function App() {
               }
             />
           </>
+        ) : (
+          <Route
+            path="/"
+            element={
+              <>
+                <Login />
+              </>
+            }
+          />
         )}
       </Routes>
     </Router>

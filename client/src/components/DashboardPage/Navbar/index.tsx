@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,6 +16,10 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Search, SearchIconWrapper } from "./Search";
+import Tooltip from "@mui/material/Tooltip";
+import Avatar from "@mui/material/Avatar";
+import { useLoggedUser } from "../../../contexts/UserContexts";
+import IUser from "../../../interfaces/IUser";
 
 const drawerWidth = 240;
 
@@ -58,6 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 type voidDelegate = () => void;
 
 export default function Navbar(props: { title: string }) {
+  const user = useLoggedUser() as IUser
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -121,6 +126,23 @@ export default function Navbar(props: { title: string }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleProfileMenuOpen} sx={{ p: 0 }}>
+              <Avatar alt="Remy Sharp" src={user.avatar} />
+              {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+            </IconButton>
+          </Tooltip>
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -140,18 +162,6 @@ export default function Navbar(props: { title: string }) {
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
       </MenuItem>
     </Menu>
   );
@@ -209,7 +219,11 @@ export default function Navbar(props: { title: string }) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleProfileMenuOpen} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={user.avatar} />
+                </IconButton>
+              </Tooltip>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
