@@ -1,6 +1,7 @@
 # Environment
 
 Docker v.20 or higher
+
 docker-compose v1.29.2 or higher
 
 # Run
@@ -8,6 +9,11 @@ docker-compose v1.29.2 or higher
 ```shell
 docker-compose up -d
 ```
+client: http://localhost (port 80 default for http)
+
+api: http://localhost:3004
+
+the api is a json-server instance that uses [this json file](https://github.com/samerbahri98/continental/blob/master/api/mockDatabase.json) as a database. there is no business logic backend implemented
 
 # Dummy credendials
 
