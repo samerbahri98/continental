@@ -1,7 +1,7 @@
 import IDockerField from "../interfaces/IDockerField";
 import IUser from "../interfaces/IUser";
 
-const api_url = "http://localhost:3004/api";
+const api_url = process.env.API_URL || "http://localhost:3004/api";
 
 export const getUserById = (id: string) => {
   return new Promise<IUser>(async (resolve, reject) => {

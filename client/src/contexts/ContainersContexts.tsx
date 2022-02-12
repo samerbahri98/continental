@@ -17,7 +17,7 @@ import {
   getUserById,
 } from "./requests";
 
-const api_url = "http://localhost:3004/api";
+const api_url = process.env.API_URL || "http://localhost:3004";
 
 type AddDockerContainerContextDelegate = (
   container: IDockerContainerRequest

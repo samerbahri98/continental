@@ -8,7 +8,7 @@ import {
 import ILoginRequest from "../interfaces/ILoginRequest";
 import IUser from "../interfaces/IUser";
 
-const api_url = "http://localhost:3004/api";
+const api_url = process.env.API_URL || "http://localhost:3004/api";
 
 type LoginDelegate = (credentials: ILoginRequest) => Promise<IUser>;
 type LogoutDelegate = () => void;

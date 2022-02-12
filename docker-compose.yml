@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  api:
+    build: ./api
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - "3004:3004"
+    networks:
+      - app-network
+    command: sh -c 'npm run json:server'
+  client:
+    build: ./client
+    container_name: client
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    environment:
+      - API_URL=http://api:3004
+    command: sh -c 'npx http-server -p 80 -a 0.0.0.0'
+    depends_on:
+      - "api"
+    links:
+      - api
+
+networks:
+  app-network:
+    driver: bridge
