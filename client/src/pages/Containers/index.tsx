@@ -159,19 +159,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
           Containers
         </Typography>
       )}
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+      
     </Toolbar>
   );
 };
@@ -183,7 +171,7 @@ export default function Containers() {
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -351,7 +339,7 @@ export default function Containers() {
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            rowsPerPageOptions={[25, 50, 100]}
             component="div"
             count={rows.length}
             rowsPerPage={rowsPerPage}

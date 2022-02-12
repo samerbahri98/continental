@@ -63,9 +63,59 @@ export function ContainersProvider(props: PropsWithChildren<{}>) {
       })
         .then((data) => data.json())
         .then(async (containerResponse: IDockerContainerRequest) => {
+          if (!dataset["users"][container.user]) {
+            dataset["users"][container.user] = await getUserById(
+              container.user
+            );
+          }
+          if (!dataset["images"]["registries"][container.image.registry]) {
+            dataset["images"]["registries"][container.image.registry] =
+              await getRegistryById(container.image.registry);
+          }
+          if (!dataset["images"]["repositories"][container.image.repository]) {
+            dataset["images"]["repositories"][container.image.repository] =
+              await getRepositoryById(container.image.repository);
+          }
+          if (!dataset["images"]["tags"][container.image.tag]) {
+            dataset["images"]["tags"][container.image.tag] = await getTagById(
+              container.image.tag
+            );
+          }
+          const newDockerContainer: IDockerContainer = {
+            user: dataset["users"][containerResponse.user],
+            image: {
+              registry:
+                dataset["images"]["registries"][container.image.registry],
+              repository:
+                dataset["images"]["repositories"][container.image.repository],
+              tag: dataset["images"]["tags"][container.image.tag],
+            },
+            isRunning: container.isRunning,
+            username: dataset["users"][container.user]["username"],
+            userAvatar: dataset["users"][container.user]["avatar"],
+            imageLabel: `${
+              dataset["images"]["registries"][container.image.registry][
+                "name"
+              ] as string
+            }/${
+              dataset["images"]["repositories"][container.image.repository][
+                "name"
+              ] as string
+            }:${
+              dataset["images"]["tags"][container.image.tag]["name"] as string
+            }`,
+            id: container.id,
+            name: container.name,
+          };
+          const newList = dockerContainersList;
+          newList.push(newDockerContainer);
+          setDockerContainersList(newList);
           resolve("container added sccessfully");
         })
-        .catch(() => reject("an error has occured"));
+        .catch((err) => {
+          reject("an error has occured");
+          console.log(err);
+        });
     });
   };
 
@@ -113,8 +163,8 @@ export function ContainersProvider(props: PropsWithChildren<{}>) {
                   ] as IDockerField,
                 },
                 isRunning: container.isRunning,
-                username:dataset["users"][container.user]["username"],
-                userAvatar:dataset["users"][container.user]["avatar"],
+                username: dataset["users"][container.user]["username"],
+                userAvatar: dataset["users"][container.user]["avatar"],
                 imageLabel: `${
                   dataset["images"]["registries"][container.image.registry][
                     "name"
@@ -123,15 +173,14 @@ export function ContainersProvider(props: PropsWithChildren<{}>) {
                   dataset["images"]["repositories"][container.image.repository][
                     "name"
                   ] as string
-                }<${
+                }:${
                   dataset["images"]["tags"][container.image.tag][
                     "name"
                   ] as string
-                }>`,
+                }`,
               })
             );
             setDockerContainersList(containerList);
-            console.log(containerList);
           });
     })();
   });

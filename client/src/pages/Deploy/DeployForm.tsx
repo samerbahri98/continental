@@ -1,65 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Stack from "@mui/material/Stack";
 import IDockerTag from "../../interfaces/IDockerTag";
-const registries = [
-  {
-    id: "8bdead6d-2331-492f-a70b-e761ed7534f8",
-    name: "docker.io",
-    repositories: ["b23299b2-1412-4a13-8fba-93943edc6784"],
-  },
-  {
-    id: "37ef371f-dbac-4c32-81f5-89df6600f096",
-    name: "myregistry.io",
-    repositories: [
-      "ad4840de-ca46-426c-b4c7-ec3a7263d36a",
-      "74c28f06-f911-4bf5-89a8-e948c3d927e6",
-    ],
-  },
-  {
-    id: "6ff5351e-b6aa-416a-be91-fec331d3e67f",
-    name: "otherregistry.com",
-    repositories: [],
-  },
-];
-function DeployForm() {
-  const defaultProps = {
-    options: registries,
-    getOptionLabel: (option: IDockerTag) => option.name,
-  };
-  const flatProps = {
-    options: registries.map((option) => option.name),
-  };
-  const [value, setValue] = React.useState<IDockerTag | null>(null);
+import AutocompleteField from "./AutocompleteField";
+import { Field, FormikProps } from "formik";
+import IDockerContainerRequest from "../../interfaces/IDockerContainerRequest";
 
+interface IDeployFormProps {
+  props: FormikProps<IDockerContainerRequest>;
+}
+function DeployForm({ props }: IDeployFormProps) {
+  const resetRepository = () => {
+    props.setFieldValue("image.repository", "");
+  };
+
+  const resetTag = () => {
+    props.setFieldValue("image.tag", "");
+  };
   return (
     <Stack spacing={1} sx={{ width: 300 }}>
-      <Autocomplete
-        {...defaultProps}
-        id="Registry"
-        disableCloseOnSelect
-        renderInput={(params) => (
-          <TextField {...params} label="Registry" variant="standard" />
-        )}
+      <TextField
+        label="Name"
+        variant="standard"
+        name="name"
+        id="name"
+        required
+        value={props.values.name}
+        onChange={(e) => props.setFieldValue("name", e.target.value)}
       />
-      <Autocomplete
-        {...defaultProps}
-        id="Registry"
-        disableCloseOnSelect
-        renderInput={(params) => (
-          <TextField {...params} label="Registry" variant="standard" />
-        )}
+      <AutocompleteField
+        setFieldValue={props.setFieldValue}
+        name="image.registry"
+        placeholder="Registry"
+        parentFieldId={""}
+        label="Registry"
+        value={props.values.image.registry}
+        disabled={false}
+        resetRepository={resetRepository}
+        resetTag={resetTag}
       />
-      <Autocomplete
-        {...defaultProps}
-        id="Registry"
-        disableCloseOnSelect
-        renderInput={(params) => (
-          <TextField {...params} label="Registry" variant="standard" />
-        )}
+
+      <AutocompleteField
+        setFieldValue={props.setFieldValue}
+        value={props.values.image.repository}
+        name="image.repository"
+        placeholder="Repository"
+        parentFieldId={props.values.image.registry}
+        label="Repository"
+        disabled={props.values.image.registry === ""}
+        resetRepository={resetRepository}
+        resetTag={resetTag}
       />
-      
+
+      <AutocompleteField
+        setFieldValue={props.setFieldValue}
+        value={props.values.image.tag}
+        name="image.tag"
+        placeholder="Tag"
+        parentFieldId={props.values.image.repository}
+        label="Tag"
+        disabled={props.values.image.repository === ""}
+        resetRepository={resetRepository}
+        resetTag={resetTag}
+      />
     </Stack>
   );
 }

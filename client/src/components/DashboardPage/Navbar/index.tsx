@@ -1,6 +1,8 @@
 import { useState, MouseEvent, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import { useNavigate } from "react-router-dom";
+
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -15,10 +17,9 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { Search, SearchIconWrapper } from "./Search";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
-import { useLoggedUser } from "../../../contexts/UserContexts";
+import { useLoggedUser, useLogout } from "../../../contexts/UserContexts";
 import IUser from "../../../interfaces/IUser";
 
 const drawerWidth = 240;
@@ -45,6 +46,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
@@ -62,7 +64,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 type voidDelegate = () => void;
 
 export default function Navbar(props: { title: string }) {
-  const user = useLoggedUser() as IUser
+  const navigate = useNavigate();
+  const user = useLoggedUser() as IUser;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     useState<null | HTMLElement>(null);
@@ -87,6 +90,8 @@ export default function Navbar(props: { title: string }) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const logout = useLogout();
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -104,8 +109,16 @@ export default function Navbar(props: { title: string }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>{user.username}</MenuItem>
+      <MenuItem
+        onClick={() => {
+          logout();
+          navigate("/");
+          window.location.reload();
+        }}
+      >
+        Logout
+      </MenuItem>
     </Menu>
   );
 
@@ -141,27 +154,7 @@ export default function Navbar(props: { title: string }) {
             </IconButton>
           </Tooltip>
         </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+        <p>{user.username}</p>
       </MenuItem>
     </Menu>
   );
@@ -181,35 +174,9 @@ export default function Navbar(props: { title: string }) {
           >
             {props.title}
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               size="large"
               edge="end"
